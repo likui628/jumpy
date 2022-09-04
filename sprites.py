@@ -12,6 +12,7 @@ class Player(pg.sprite.Sprite):
         self.vx = 0
         self.vy = 0
         self.acc = 0
+        self.acc_y = 0
 
     def update(self):
         self.acc = 0
@@ -23,10 +24,15 @@ class Player(pg.sprite.Sprite):
 
         self.acc += self.vx * PLAYER_FRICTION
         self.vx += self.acc
-        self.rect.x += int(self.vx + 0.5 * self.acc)
+        self.rect.x += int(self.vx)
+
+        self.vy += 0.3
+        self.vy += self.acc_y
         self.rect.y += self.vy
 
         if self.rect.x > WIDTH:
             self.rect.x = 0
         if self.rect.right < 0:
             self.rect.right = WIDTH
+        if self.rect.top > HEIGHT:
+            self.rect.top = 0
